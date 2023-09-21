@@ -66,8 +66,7 @@ where f.manufacturing_cost in (
 )
 order by f.manufacturing_cost desc;
 
-### Query 6: Generate a report which contains the top 5 customers who received anaverage high pre_invoice_discount_pct for the fiscal year 2021 and in the Indian market. The final output contains these fields, 
-### customer_code, customer, average_discount_percentage
+### Query 6: Generate a report which contains the top 5 customers who received anaverage high pre_invoice_discount_pct for the fiscal year 2021 and in the Indian market. The final output contains these fields, customer_code, customer, average_discount_percentage
 
 **Answer:** select c.customer,c.customer_code,(f.pre_invoice_discount_pct) as average_discount_percentage
 from fact_pre_invoice_deductions f 
@@ -76,10 +75,7 @@ where f.fiscal_year=2021 and c.market='india'
 order by average_discount_percentage desc
 limit 5
 
-### Query 7: Get the complete report of the Gross sales amount for the customer “Atliq Exclusive” for each month. This analysis helps to get an idea of low and high-performing months and take strategic decisions. The final report contains these columns:
-### Month
-### Year
-### Gross sales Amount
+### Query 7: Get the complete report of the Gross sales amount for the customer “Atliq Exclusive” for each month. This analysis helps to get an idea of low and high-performing months and take strategic decisions. The final report contains these columns:Month, Year and Gross sales Amount
 
 **Answer:** set sql_mode="";
 select month(f.date) as month,monthname(date) as monthname, f.fiscal_year,
@@ -93,9 +89,7 @@ Group by month,f.fiscal_year
 order by f.fiscal_year
 
 
-### Query 8: In which quarter of 2020, got the maximum total_sold_quantity? The final output contains these fields sorted by the total_sold_quantity,
-### Quarter
-### total_sold_quantity
+### Query 8: In which quarter of 2020, got the maximum total_sold_quantity? The final output contains these fields sorted by the total_sold_quantity, Quarter and total_sold_quantity
 
 **Answer:** select concat('Q',ceiling(a.month/3)) as quarters ,sum(sold_quantity) as sold_quantity from 
 (select month(DATE_ADD(date, INTERVAL 4 MONTH)) as month,fiscal_year,sold_quantity 
@@ -103,10 +97,7 @@ from fact_sales_monthly where fiscal_year = 2020) a
 group by quarters
 order by sold_quantity desc
 
-### Query 9: Which channel helped to bring more gross sales in the fiscal year 2021 and the percentage of contribution? The final output contains these fields,
-### channel
-### gross_sales_mln
-### percentage
+### Query 9: Which channel helped to bring more gross sales in the fiscal year 2021 and the percentage of contribution? The final output contains these fields, channel, gross_sales_mln and percentage
 
 **Answer:** set sql_mode="";
 
@@ -121,10 +112,7 @@ order by gross_sales desc)
 
 select  channel,round(gross_sales/1000000,2) as gross_sales,round((gross_sales*100)/sum(gross_sales) over(),2) as pct_chg from cte1 
 
-### Query 10: Get the Top 3 products in each division that have a high total_sold_quantity in the fiscal_year 2021? The final output contains these
-### fields,
-### division
-### product_code
+### Query 10: Get the Top 3 products in each division that have a high total_sold_quantity in the fiscal_year 2021? The final output contains these fields, division and product_code
 
 **Answer:** with cte1 as(select p.division,f.product_code,p.product,sum(f.sold_quantity) as sold_quantity,rank() 
 over(partition by division order by sum(sold_quantity) desc) as rank_order from fact_sales_monthly f
