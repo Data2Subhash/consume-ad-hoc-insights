@@ -132,10 +132,5 @@ To use these SQL queries, you can copy and paste them into your preferred SQL da
 
 If you have additional queries or improvements to existing queries, feel free to contribute to this repository by creating a pull request.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 This README provides an organized and informative structure for your GitHub repository, making it easy for others to understand and use your SQL queries.
